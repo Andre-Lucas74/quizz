@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Meio Ambiente</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>
+      <span class="leaf">🌱</span> Quiz sobre Meio Ambiente <span class="leaf">🌱</span>
+    </h1>
+    <p class="intro">
+      Teste seus conhecimentos sobre ecologia, reciclagem, energia renovável, sustentabilidade e muito mais! <br>
+      Aprenda curiosidades e dicas para proteger o planeta enquanto se diverte.
+    </p>
+    <div id="quiz">
+      <div id="progress-bar"><div id="progress"></div></div>
+      <div id="question-container"></div>
+      <div id="question-detail" class="detail"></div>
+      <div id="answers-container"></div>
+      <button id="next-btn" class="hide">Próxima Pergunta</button>
+    </div>
+    <div id="result" class="hide"></div>
+    <button id="restart-btn" class="hide">Reiniciar Quiz</button>
+  </div>
+  <footer>
+    <small>Feito com <span style="color:#27ae60;">❤</span> pelo planeta</small>
+  </footer>
+  <script src="quiz.js"></script>
+</body>
+</html>
