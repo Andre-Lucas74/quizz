@@ -12,7 +12,6 @@
   --answer-wrong: linear-gradient(90deg, #ff7675 60%, #d63031 100%);
   --button-bg: linear-gradient(90deg, #17c3b2 40%, #27ae60 100%);
   --button-hover: linear-gradient(90deg, #27ae60 60%, #17c3b2 100%);
-  --footer: #206140;
   --progress-bg: #dbf3e4;
   --progress-bar: linear-gradient(90deg, #27ae60 60%, #2ecc71 100%);
   --detail-bg: #f0fff0;
@@ -135,16 +134,17 @@ h1 {
   color: var(--text-strong);
   box-shadow: 0 1px 1.5px rgba(46,204,113,.13);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s, transform 0.1s;
+  transition: color 0.2s, transform 0.1s;
   outline: none;
 }
 
 .answer-btn:focus {
-  outline: 3px solid #005fcc;
-  background: #c8e0ff;
+  outline: none;
+  background: inherit;
+  box-shadow: none;
 }
 
-.answer-btn:hover:not(:disabled), .answer-btn:focus-visible:not(:disabled) {
+.answer-btn:hover:not(:disabled) {
   background: var(--answer-hover);
   color: #fff;
   transform: translateY(-2px) scale(1.03);
@@ -153,11 +153,13 @@ h1 {
 .answer-btn.correct {
   background: var(--answer-correct);
   color: #fff;
+  transition: none;
 }
 
 .answer-btn.wrong {
   background: var(--answer-wrong);
   color: #fff;
+  transition: none;
 }
 
 button#next-btn, button#restart-btn, #toggle-theme-btn, #start-btn {
@@ -176,11 +178,9 @@ button#next-btn, button#restart-btn, #toggle-theme-btn, #start-btn {
   margin-bottom: 5px;
 }
 
-button#next-btn:hover, button#restart-btn:hover, #toggle-theme-btn:hover, #start-btn:hover, 
-button#next-btn:focus, button#restart-btn:focus, #toggle-theme-btn:focus, #start-btn:focus {
+button#next-btn:hover, button#restart-btn:hover, #toggle-theme-btn:hover, #start-btn:hover {
   background: var(--button-hover);
   transform: scale(1.03);
-  outline: 3px solid #005fcc;
 }
 
 #toggle-theme-btn {
@@ -210,12 +210,6 @@ button#next-btn:focus, button#restart-btn:focus, #toggle-theme-btn:focus, #start
   transition: background 0.4s, color 0.4s;
 }
 
-footer {
-  text-align: center;
-  margin-bottom: 12px;
-  color: var(--footer);
-}
-
 /* Night mode styles */
 body.night {
   --background: linear-gradient(135deg, #1c2a25 0%, #223c3a 100%);
@@ -231,7 +225,6 @@ body.night {
   --answer-wrong: linear-gradient(90deg, #ff7675 60%, #d63031 100%);
   --button-bg: linear-gradient(90deg, #38f9d7 40%, #43e97b 100%);
   --button-hover: linear-gradient(90deg, #43e97b 60%, #38f9d7 100%);
-  --footer: #38f9d7;
   --progress-bg: #19382f;
   --progress-bar: linear-gradient(90deg, #43e97b 60%, #38f9d7 100%);
   --detail-bg: #25342d;
