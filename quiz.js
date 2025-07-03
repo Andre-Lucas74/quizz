@@ -148,9 +148,26 @@ const resultDiv = document.getElementById('result');
 const restartBtn = document.getElementById('restart-btn');
 const progressBar = document.getElementById('progress');
 const detailDiv = document.getElementById('question-detail');
+const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+const startScreen = document.getElementById('start-screen');
+const quizDiv = document.getElementById('quiz');
+const startBtn = document.getElementById('start-btn');
 
 let currentQuestion = 0;
 let score = 0;
+
+// Acessibilidade: foco automático na pergunta ou resposta
+function focusFirstAnswer() {
+  const btn = answersContainer.querySelector('button');
+  if (btn) btn.focus();
+}
+
+// Mostra a tela inicial
+function showStartScreen() {
+  startScreen.classList.remove('hide');
+  quizDiv.classList.add('hide');
+  startBtn.focus();
+}
 
 function startQuiz() {
   currentQuestion = 0;
@@ -159,6 +176,8 @@ function startQuiz() {
   restartBtn.classList.add('hide');
   nextBtn.classList.add('hide');
   updateProgress();
+  startScreen.classList.add('hide');
+  quizDiv.classList.remove('hide');
   showQuestion();
 }
 
@@ -167,20 +186,23 @@ function showQuestion() {
   updateProgress();
   const q = questions[currentQuestion];
   questionContainer.textContent = q.question;
-  if (q.detail) {
-    detailDiv.style.display = 'block';
-    detailDiv.textContent = q.detail;
-  } else {
-    detailDiv.style.display = 'none';
-    detailDiv.textContent = '';
-  }
-  q.answers.forEach((answer, idx) => {
+  detailDiv.style.display = 'none';
+  detailDiv.textContent = '';
+
+  q.answers.forEach((answer) => {
     const btn = document.createElement('button');
     btn.textContent = answer.text;
     btn.classList.add('answer-btn');
+    btn.setAttribute('tabindex', '0');
     btn.onclick = () => selectAnswer(btn, answer);
+    btn.onkeyup = (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        btn.click();
+      }
+    };
     answersContainer.appendChild(btn);
   });
+  focusFirstAnswer();
 }
 
 function resetState() {
@@ -204,12 +226,13 @@ function selectAnswer(selectedBtn, answer) {
   });
   if (answer.correct) score++;
   selectedBtn.classList.add(answer.correct ? 'correct' : 'wrong');
-  // Exibe o detalhe da pergunta após responder
+
   if (questions[currentQuestion].detail) {
     detailDiv.style.display = 'block';
     detailDiv.textContent = questions[currentQuestion].detail;
   }
   nextBtn.classList.remove('hide');
+  nextBtn.focus();
 }
 
 nextBtn.addEventListener('click', () => {
@@ -219,6 +242,9 @@ nextBtn.addEventListener('click', () => {
   } else {
     showResult();
   }
+});
+nextBtn.addEventListener('keyup', e => {
+  if (e.key === "Enter" || e.key === " ") nextBtn.click();
 });
 
 function showResult() {
@@ -240,9 +266,13 @@ function showResult() {
   restartBtn.classList.remove('hide');
   nextBtn.classList.add('hide');
   updateProgress(true);
+  resultDiv.focus();
 }
 
 restartBtn.addEventListener('click', startQuiz);
+restartBtn.addEventListener('keyup', e => {
+  if (e.key === "Enter" || e.key === " ") restartBtn.click();
+});
 
 function updateProgress(forceComplete = false) {
   const progressPercent = forceComplete
@@ -251,4 +281,37 @@ function updateProgress(forceComplete = false) {
   progressBar.style.width = progressPercent + '%';
 }
 
-startQuiz();
+// Tema Noturno
+function setNightMode(on) {
+  if (on) {
+    document.body.classList.add('night');
+    toggleThemeBtn.textContent = '☀️ Modo Claro';
+    toggleThemeBtn.title = 'Alternar para modo claro';
+    localStorage.setItem('quizTheme', 'night');
+  } else {
+    document.body.classList.remove('night');
+    toggleThemeBtn.textContent = '🌙 Modo Noturno';
+    toggleThemeBtn.title = 'Alternar para modo noturno';
+    localStorage.setItem('quizTheme', 'light');
+  }
+}
+
+toggleThemeBtn.addEventListener('click', () => {
+  const isNight = document.body.classList.contains('night');
+  setNightMode(!isNight);
+});
+
+// Persistência do tema escolhido
+(function () {
+  const theme = localStorage.getItem('quizTheme');
+  setNightMode(theme === 'night');
+})();
+
+// Iniciar quiz
+startBtn.addEventListener('click', startQuiz);
+startBtn.addEventListener('keyup', e => {
+  if (e.key === "Enter" || e.key === " ") startQuiz();
+});
+
+// Inicializa mostrando a tela inicial
+showStartScreen();
