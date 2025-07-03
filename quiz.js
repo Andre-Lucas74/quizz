@@ -156,17 +156,9 @@ const startBtn = document.getElementById('start-btn');
 let currentQuestion = 0;
 let score = 0;
 
-// Acessibilidade: foco automático na pergunta ou resposta
-function focusFirstAnswer() {
-  const btn = answersContainer.querySelector('button');
-  if (btn) btn.focus();
-}
-
-// Mostra a tela inicial
 function showStartScreen() {
   startScreen.classList.remove('hide');
   quizDiv.classList.add('hide');
-  startBtn.focus();
 }
 
 function startQuiz() {
@@ -193,16 +185,9 @@ function showQuestion() {
     const btn = document.createElement('button');
     btn.textContent = answer.text;
     btn.classList.add('answer-btn');
-    btn.setAttribute('tabindex', '0');
     btn.onclick = () => selectAnswer(btn, answer);
-    btn.onkeyup = (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        btn.click();
-      }
-    };
     answersContainer.appendChild(btn);
   });
-  focusFirstAnswer();
 }
 
 function resetState() {
@@ -232,7 +217,6 @@ function selectAnswer(selectedBtn, answer) {
     detailDiv.textContent = questions[currentQuestion].detail;
   }
   nextBtn.classList.remove('hide');
-  nextBtn.focus();
 }
 
 nextBtn.addEventListener('click', () => {
@@ -242,9 +226,6 @@ nextBtn.addEventListener('click', () => {
   } else {
     showResult();
   }
-});
-nextBtn.addEventListener('keyup', e => {
-  if (e.key === "Enter" || e.key === " ") nextBtn.click();
 });
 
 function showResult() {
@@ -266,13 +247,9 @@ function showResult() {
   restartBtn.classList.remove('hide');
   nextBtn.classList.add('hide');
   updateProgress(true);
-  resultDiv.focus();
 }
 
 restartBtn.addEventListener('click', startQuiz);
-restartBtn.addEventListener('keyup', e => {
-  if (e.key === "Enter" || e.key === " ") restartBtn.click();
-});
 
 function updateProgress(forceComplete = false) {
   const progressPercent = forceComplete
@@ -309,9 +286,6 @@ toggleThemeBtn.addEventListener('click', () => {
 
 // Iniciar quiz
 startBtn.addEventListener('click', startQuiz);
-startBtn.addEventListener('keyup', e => {
-  if (e.key === "Enter" || e.key === " ") startQuiz();
-});
 
 // Inicializa mostrando a tela inicial
 showStartScreen();
