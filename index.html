@@ -7,27 +7,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>
-      <span class="leaf">🌱</span> Quiz sobre Meio Ambiente <span class="leaf">🌱</span>
-    </h1>
-    <p class="intro">
-      Teste seus conhecimentos sobre ecologia, reciclagem, energia renovável, sustentabilidade e muito mais! <br>
-      Aprenda curiosidades e dicas para proteger o planeta enquanto se diverte.
-    </p>
-    <div id="quiz">
-      <div id="progress-bar"><div id="progress"></div></div>
+  <main class="quiz-container" aria-label="Quiz sobre Meio Ambiente">
+    <section id="start-screen">
+      <h1>
+        <span class="leaf" aria-hidden="true">🌱</span> Quiz sobre Meio Ambiente <span class="leaf" aria-hidden="true">🌱</span>
+      </h1>
+      <p class="intro">
+        Teste seus conhecimentos sobre ecologia, reciclagem, energia renovável, sustentabilidade e muito mais!<br>
+        Aprenda curiosidades e dicas para proteger o planeta enquanto se diverte.
+      </p>
+      <button id="start-btn" autofocus aria-label="Iniciar Quiz">Iniciar Quiz</button>
+      <button id="toggle-theme-btn" title="Alternar modo claro/escuro" aria-label="Alternar modo claro ou escuro">🌙 Modo Noturno</button>
+    </section>
+    <section id="quiz" class="hide" aria-live="polite">
+      <div id="progress-bar" aria-label="Progresso"><div id="progress"></div></div>
       <div id="question-container"></div>
       <div id="question-detail" class="detail"></div>
       <div id="answers-container"></div>
-      <button id="next-btn" class="hide">Próxima Pergunta</button>
-    </div>
-    <div id="result" class="hide"></div>
-    <button id="restart-btn" class="hide">Reiniciar Quiz</button>
-  </div>
-  <footer>
-    <small>Feito com <span style="color:#27ae60;">❤</span> pelo planeta</small>
-  </footer>
+      <button id="next-btn" class="hide" aria-label="Próxima Pergunta">Próxima Pergunta</button>
+      <div id="result" class="hide" tabindex="0"></div>
+      <button id="restart-btn" class="hide" aria-label="Reiniciar Quiz">Reiniciar Quiz</button>
+    </section>
+  </main>
   <script src="quiz.js"></script>
 </body>
 </html>
